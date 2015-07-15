@@ -55,10 +55,30 @@
                         scale:(unscaledlogo.scale * 5.0)
                   orientation:(unscaledlogo.imageOrientation)];
     
-    CGRect imageFrame = CGRectMake(center.x - (logo.size.width / 2.0),
+    /*CGRect imageFrame = CGRectMake(center.x - (logo.size.width / 2.0),
                                    center.y - (logo.size.height / 2.0),
                                    logo.size.width,
-                                   logo.size.height);
+                                   logo.size.height);*/
+    
+    /*UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 435)];
+    scroll.contentSize = CGSizeMake(320, 700);
+    scroll.showsHorizontalScrollIndicator = YES;*/
+    
+    
+    //Add segment control
+    NSArray *itemArray = [NSArray arrayWithObjects: @"Red", @"Blue", @"Green", nil];
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+    segmentedControl.frame = CGRectMake(35, 200, 250, 50);
+    segmentedControl.center = CGPointMake(self.frame.size.width  / 2,
+                                           self.frame.size.height - 74);
+    segmentedControl.tintColor = [UIColor blackColor];
+    segmentedControl.backgroundColor = [UIColor lightGrayColor];
+    //segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
+    [segmentedControl addTarget:self action:@selector(MySegmentControlAction:) forControlEvents: UIControlEventValueChanged];
+    //segmentedControl.selectedSegmentIndex = 1;
+    [self addSubview:segmentedControl];
+    //[self addSubview:scroll];
+    
     //[logo drawInRect:imageFrame];
     
 }
@@ -90,6 +110,30 @@
 - (void)setCircleColor:(UIColor *)circleColor{
     _circleColor = circleColor;
     [self setNeedsDisplay];
+}
+
+- (void)MySegmentControlAction:(UISegmentedControl *)segment
+{
+    if(segment.selectedSegmentIndex == 0)
+    {
+        self.circleColor = [UIColor redColor];
+        [segment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+        NSLog(@"First segment hit");
+    }
+    else if(segment.selectedSegmentIndex == 1)
+    {
+        self.circleColor = [UIColor blueColor];
+        [segment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+        NSLog(@"Second segment hit");
+
+    }
+    else if(segment.selectedSegmentIndex == 2)
+    {
+        self.circleColor = [UIColor greenColor];
+        [segment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+        NSLog(@"Third segment hit");
+
+    }
 }
 
 
